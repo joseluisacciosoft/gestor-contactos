@@ -101,7 +101,7 @@ export const ContactoForm: React.FC<ContactoFormProps> = ({ contacto, onSubmit, 
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Ingrese el email"
+          placeholder="ejemplo@email.com"
         />
       </div>
 
