@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ContactoForm } from './components/ContactoForm';
 import { ContactoList } from './components/ContactoList';
+import { ToastContainer } from './components/Toast';
 import { contactosService, Contacto } from './services/contactosService';
+import { useToast } from './hooks/useToast';
 import './App.css';
 
 export const App: React.FC = () => {
@@ -14,6 +16,7 @@ export const App: React.FC = () => {
     const saved = localStorage.getItem('darkMode');
     return saved ? JSON.parse(saved) : false;
   });
+  const toast = useToast();
 
   useEffect(() => {
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
@@ -30,7 +33,7 @@ export const App: React.FC = () => {
       setContactos(data);
     } catch (error) {
       console.error('Error al cargar contactos:', error);
-      alert('❌ Error al cargar los contactos. Verifica que:\n1. El servidor backend esté ejecutándose en puerto 5000\n2. MySQL esté activo en XAMPP\n3. La tabla "contactos" exista en "agenda_db"');
+      toast.error('Error al cargar los contactos. Verifica que:\n1. El servidor backend esté ejecutándose en puerto 5000\n2. MySQL esté activo en XAMPP\n3. La tabla "contactos" exista en "agenda_db"');
     } finally {
       setLoading(false);
     }
@@ -50,29 +53,29 @@ export const App: React.FC = () => {
     try {
       if (selectedContacto?.id) {
         await contactosService.update(selectedContacto.id, contacto);
-        alert('✅ Contacto actualizado correctamente');
+        toast.success('Contacto actualizado correctamente');
       } else {
         await contactosService.create(contacto);
-        alert('✅ Contacto creado correctamente');
+        toast.success('Contacto creado correctamente');
       }
       setShowForm(false);
       await loadContactos();
     } catch (error: any) {
       console.error('Error al guardar contacto:', error);
       const errorMessage = error.response?.data?.error || 'Error al guardar el contacto';
-      alert(errorMessage);
+      toast.error(errorMessage);
     }
   };
 
   const handleDeleteContacto = async (id: number) => {
     try {
       await contactosService.delete(id);
-      alert('✅ Contacto eliminado correctamente');
+      toast.success('Contacto eliminado correctamente');
       await loadContactos();
     } catch (error: any) {
       console.error('Error al eliminar contacto:', error);
       const errorMessage = error.response?.data?.error || 'Error al eliminar el contacto';
-      alert(errorMessage);
+      toast.error(errorMessage);
     }
   };
 
@@ -125,6 +128,7 @@ export const App: React.FC = () => {
             contacto={selectedContacto}
             onSubmit={handleSubmitForm}
             onCancel={handleCancelForm}
+            onShowToast={(message, type) => toast.addToast(message, type || 'error')}
           />
         )}
 
@@ -135,6 +139,8 @@ export const App: React.FC = () => {
           loading={loading}
         />
       </main>
+
+      <ToastContainer toasts={toast.toasts} onRemove={toast.removeToast} />
 
       <footer className="app-footer">
         <p>© 2026 Agenda de Contactos - Desarrollado por @jrodesc</p>

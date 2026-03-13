@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Contacto } from '../services/contactosService';
 import './ContactoForm.css';
 
@@ -6,9 +6,10 @@ interface ContactoFormProps {
   contacto?: Contacto;
   onSubmit: (contacto: Contacto) => Promise<void>;
   onCancel: () => void;
+  onShowToast?: (message: string, type?: 'success' | 'error' | 'warning' | 'info') => void;
 }
 
-export const ContactoForm: React.FC<ContactoFormProps> = ({ contacto, onSubmit, onCancel }) => {
+export const ContactoForm: React.FC<ContactoFormProps> = ({ contacto, onSubmit, onCancel, onShowToast }) => {
   const [formData, setFormData] = useState<Contacto>({
     nombre: '',
     telefono: '',
@@ -52,7 +53,9 @@ export const ContactoForm: React.FC<ContactoFormProps> = ({ contacto, onSubmit, 
     
     const error = validateForm();
     if (error) {
-      alert('❌ ' + error);
+      if (onShowToast) {
+        onShowToast(error, 'error');
+      }
       return;
     }
 

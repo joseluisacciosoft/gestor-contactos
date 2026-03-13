@@ -1,0 +1,134 @@
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-light);
+  animation: slideInRight 0.3s ease-out;
+  border: 1px solid;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
+
+.toast.toast-success {
+  background-color: #f0f9ff;
+  border-color: #86efac;
+  color: #166534;
+}
+
+.app.dark-mode .toast.toast-success {
+  background-color: #064e3b;
+  border-color: #34d399;
+  color: #d1fae5;
+}
+
+.toast.toast-error {
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+.app.dark-mode .toast.toast-error {
+  background-color: #7f1d1d;
+  border-color: #f87171;
+  color: #fee2e2;
+}
+
+.toast.toast-warning {
+  background-color: #fffbeb;
+  border-color: #fcd34d;
+  color: #b45309;
+}
+
+.app.dark-mode .toast.toast-warning {
+  background-color: #78350f;
+  border-color: #fbbf24;
+  color: #fef3c7;
+}
+
+.toast.toast-info {
+  background-color: #f0f9ff;
+  border-color: #93c5de;
+  color: #0c4a6e;
+}
+
+.app.dark-mode .toast.toast-info {
+  background-color: #0c2d4a;
+  border-color: #38bdf8;
+  color: #cffafe;
+}
+
+.toast-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.toast-message {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.toast-close:hover {
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .toast-container {
+    left: 12px;
+    right: 12px;
+    max-width: none;
+  }
+
+  .toast {
+    padding: 12px 14px;
+  }
+
+  .toast-message {
+    font-size: 13px;
+  }
+}
