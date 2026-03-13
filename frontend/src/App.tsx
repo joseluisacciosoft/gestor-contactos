@@ -137,7 +137,7 @@ export const App: React.FC = () => {
       </main>
 
       <footer className="app-footer">
-        <p>© 2026 Agenda de Contactos - Desarrollado con React + TypeScript</p>
+        <p>© 2026 Agenda de Contactos - Desarrollado por @jrodesc</p>
       </footer>
     </div>
   );
