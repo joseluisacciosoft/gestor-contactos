@@ -69,21 +69,24 @@ export const App: React.FC = () => {
 
   const handleDeleteContacto = async (id: number) => {
     try {
-      await contactosService.delete(id);
-      toast.success('Contacto eliminado correctamente');
-      await loadContactos();
+      await contactosService.delete(id); //se hace un await y se intenta eliminar contacto
+      toast.success('Contacto eliminado correctamente'); //si es un exito se muestra un toast
+      await loadContactos(); //se vuelven a cargar los contactos
     } catch (error: any) {
-      console.error('Error al eliminar contacto:', error);
+      console.error('Error al eliminar contacto:', error); 
       const errorMessage = error.response?.data?.error || 'Error al eliminar el contacto';
-      toast.error(errorMessage);
+      toast.error(errorMessage); 
     }
   };
 
+  //cuando se cancela el formulario, se settea el show del form a false y
+  //el contacto seleccionado a undefined.
   const handleCancelForm = () => {
     setShowForm(false);
     setSelectedContacto(undefined);
   };
 
+  //aqui se lleva a cabo la lógica del buscador
   const filteredContactos = contactos.filter(contacto =>
     contacto.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
     contacto.telefono.toLowerCase().includes(searchTerm.toLowerCase()) ||
