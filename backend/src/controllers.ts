@@ -37,7 +37,7 @@ export const getContactoById = async (req: Request, res: Response) => {
       return res.status(404).json({ error: 'Contacto no encontrado' });
     }
     
-    res.json((rows as Contacto[])[0]);
+    res.json((rows as Contacto[])[0]); //ese [0] devuelve el objeto completo
   } catch (error) {
     console.error('Error al obtener contacto:', error);
     res.status(500).json({ error: 'Error al obtener contacto' });

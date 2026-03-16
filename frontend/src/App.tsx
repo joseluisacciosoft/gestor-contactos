@@ -24,7 +24,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     loadContactos();
-  }, []);
+  }, []); //el [] significa que se ejecuta una sola vez al montar el componente
 
   const loadContactos = async () => {
     try {
@@ -40,7 +40,7 @@ export const App: React.FC = () => {
   };
 
   const handleNewContacto = () => {
-    setSelectedContacto(undefined);
+    setSelectedContacto(undefined); //al declararlo como undefined se sabe que es un nuevo contacto
     setShowForm(true);
   };
 
