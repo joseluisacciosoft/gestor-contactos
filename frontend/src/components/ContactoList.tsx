@@ -8,6 +8,7 @@ interface ContactoListProps {
   onEdit: (contacto: Contacto) => void;
   onDelete: (id: number) => Promise<void>;
   loading: boolean;
+  emailContacto: string;
 }
 
 export const ContactoList: React.FC<ContactoListProps> = ({ contactos, onEdit, onDelete, loading }) => {
@@ -87,7 +88,7 @@ export const ContactoList: React.FC<ContactoListProps> = ({ contactos, onEdit, o
               {contacto.email && (
                 <div className="contacto-info">
                   <span className="icon">📧</span>
-                  <span>{contacto.email}</span>
+                    <span><a href={`mailto:${contacto.email}`} style={{ color: '#4A90E2' }}>{contacto.email}</a></span>
                 </div>
               )}
               {contacto.direccion && (
