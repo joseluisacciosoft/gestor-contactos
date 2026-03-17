@@ -176,3 +176,5 @@ Modifica estas variables según tu configuración de XAMPP.
 ## 🤝 Contribución
 
 Este es un proyecto personal. Siéntete libre de modificarlo según tus necesidades.
+
+Es una prueba para practicar con React y ExpressJS
